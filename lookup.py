@@ -2,9 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 from googlesearch import search
 
-def getURL():
-	return 'https://www.sports-reference.com/cbb/players/muhammad-ali-abdur-rahkman-1.html'
-
 query = "bkref cbb "
 query += input("BKREF Search: ")
 #print(query)
