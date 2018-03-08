@@ -1,7 +1,7 @@
 ProspectLookup README
 
 - Added googlesearch functionality to return the college basketball reference page of given player
-- Prints out his name (as of now)
+- Prints out his name, height, weight, age, and class (as of now)
 
 TO DO
 - Print out player stats in organized tables
@@ -9,6 +9,5 @@ TO DO
 - Print in command prompt in tables with borders to allow for easy reading
 
 NEXT
-- Add initial view with player's age taken from NBADraft.net
 - Add shooting percentages from 2 pt range and at rim from HoopMath
 
