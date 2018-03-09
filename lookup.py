@@ -34,6 +34,23 @@ def getClass(info):
 		grade = grade[8:13]
 	return grade
 	
+def printShootingNumbers(content):
+	div = content.find("table", {"id": "players_per_game"})
+	FGp = div.find("td", {"data-stat": "fg_pct"})
+	FGp = (str(FGp))[38:-5]
+	print("FG%: ", FGp)
+	tFGp = div.find("td", {"data-stat": "fg2_pct"})
+	tFGp = (str(tFGp))[39:-5]
+	print("2FG%: ", tFGp)
+	thFGp = div.find("td", {"data-stat": "fg3_pct"})
+	thFGp = (str(thFGp))[39:-5]
+	print("3FG%: ", thFGp)
+	FTp = div.find("td", {"data-stat": "ft_pct"})
+	FTp = (str(FTp))[38:-5]
+	print("FT%: ", FTp)
+	
+	
+	
 query = "bkref cbb "
 query += input("BKREF Search: ")
 #print(query)
@@ -67,4 +84,11 @@ print("Age: ", age)
 
 grade = getClass(nbadraft_net_info)
 print("Class: ", grade)
+
+print("")
+print(" ------- SHOOTING ---------")
+printShootingNumbers(soup)
+
+
+
 
