@@ -1,13 +1,22 @@
 ProspectLookup README
 
+DEPENDENCIES: 
+- googlesearch (DL @ https://pypi.python.org/pypi/google)
+	-> Used to search for each player and return first google result
+	-> Worked well bc NBADraftnet and BasketballReference have good SEO
+- dateutil (DL @ http://labix.org/python-dateutil#head-2f49784d6b27bae60cde1cff6a535663cf87497b)
+	-> Used to convert a player's birthday from NBADraftnet to an age
+
+CURRENT FEATURES:
 - Added googlesearch functionality to return the college basketball reference page of given player
 - Prints out his name, height, weight, age, and class (as of now)
 
-TO DO
+TO DO:
 - Print out player stats in organized tables
 - Categorize by shooting, advanced, summary maybe (WS, BPM, RTGs, etc)
 - Print in command prompt in tables with borders to allow for easy reading
 
-NEXT
+AFTERWARDS:
 - Add shooting percentages from 2 pt range and at rim from HoopMath
+- Maybe ask the user what kind of stats they are interested in? Per possession data over advanced? 
 
