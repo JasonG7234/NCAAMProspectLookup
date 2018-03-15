@@ -15,8 +15,11 @@ TO DO:
 - Print out player stats in organized tables
 - Categorize by shooting, advanced, summary maybe (WS, BPM, RTGs, etc)
 - Print in command prompt in tables with borders to allow for easy reading
+- ADD LIKE ERROR IF NBADRAFT NET DOESN"T COME BACK
+- Why is Mike Daum' age wrong?
+- Why is it pulling freshmen year stats?
 
 AFTERWARDS:
 - Add shooting percentages from 2 pt range and at rim from HoopMath
 - Maybe ask the user what kind of stats they are interested in? Per possession data over advanced? 
-
+- Maybe ask the user what year they want the data from? FR, SO, JR, SR?
