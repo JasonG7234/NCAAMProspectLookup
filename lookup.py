@@ -52,20 +52,34 @@ def getClass(info):
 	return grade
 	
 def printShootingNumbers(content):
-	div = content.find("table", {"id": "players_per_game"})
-	FGp = div.find("td", {"data-stat": "fg_pct"})
+	table = content.find("table", {"id": "players_per_game"})
+	stat_year = table("tr")[-2] #Guarantee most recent season
+	#print(stat_year)
+	FGp = stat_year.find("td", {"data-stat": "fg_pct"})
 	FGp = (str(FGp))[38:-5]
 	print("FG%: ", FGp)
-	tFGp = div.find("td", {"data-stat": "fg2_pct"})
+	tFGp = stat_year.find("td", {"data-stat": "fg2_pct"})
 	tFGp = (str(tFGp))[39:-5]
 	print("2FG%: ", tFGp)
-	thFGp = div.find("td", {"data-stat": "fg3_pct"})
+	thFGp = stat_year.find("td", {"data-stat": "fg3_pct"})
 	thFGp = (str(thFGp))[39:-5]
 	print("3FG%: ", thFGp)
-	FTp = div.find("td", {"data-stat": "ft_pct"})
+	FTp = stat_year.find("td", {"data-stat": "ft_pct"})
 	FTp = (str(FTp))[38:-5]
 	print("FT%: ", FTp)
-	
+
+def printYearlyAverages(content):
+	table = content.find("table", {"id": "players_per_game"})
+	stat_year = table("tr")[-2] #Guarantee most recent season
+	PPG = stat_year.find("td", {"data-stat": "pts_per_g"})
+	PPG = (str(PPG))[41:-5]
+	print("PPG: ", PPG)
+	RPG = stat_year.find("td", {"data-stat": "trb_per_g"})
+	RPG = (str(RPG))[41:-5]
+	print("RPG: ", RPG)
+	APG = stat_year.find("td", {"data-stat": "ast_per_g"})
+	APG = (str(APG))[41:-5]
+	print("APG: ", APG)
 
 query = "bkref cbb "
 test = input("BKREF Search: ")
@@ -111,6 +125,9 @@ else:
 	grade = getClass(nbadraft_net_info)
 	print("Class: ", grade)
 
+print("")
+print(" ------- AVERAGES ---------")
+printYearlyAverages(soup)
 print("")
 print(" ------- SHOOTING ---------")
 printShootingNumbers(soup)
