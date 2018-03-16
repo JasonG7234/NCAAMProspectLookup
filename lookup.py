@@ -21,12 +21,21 @@ def getNBADraftNetInfo(name):
 	age_html = age_response.content
 
 	age_soup = BeautifulSoup(age_html, "html.parser")
-	return age_soup.find("div", {"id": "nba_player_stats_middle"})
-	
+	div = age_soup.find("div", {"id": "nba_player_stats_middle"})
+	if not div:
+		return "N/A"
+	else:
+		getName = age_soup.find("h2", {"class":"number"})
+		length = len(name)+5
+		getName = str(getName)[-length:-5]
+		if (name != str(getName)): #If the NBADraftNet result is incorrect
+			return "N/A"
+		else:
+			return div
+
 def getAge(info):
 	birthday = str(info).split("</span>",2)[1]
 	birthday = birthday[1:-43]
-	print(birthday)
 	birthdate = datetime.strptime(birthday, '%m/%d/%y').strftime('%Y-%m-%d')
 	difference_in_years = relativedelta(date.today(), datetime.strptime(birthdate, '%Y-%m-%d')).years
 	difference_in_months = relativedelta(date.today(), datetime.strptime(birthdate, '%Y-%m-%d')).months
@@ -57,8 +66,7 @@ def printShootingNumbers(content):
 	FTp = (str(FTp))[38:-5]
 	print("FT%: ", FTp)
 	
-	
-	
+
 query = "bkref cbb "
 test = input("BKREF Search: ")
 query += test
@@ -74,7 +82,6 @@ if not div: #If the original google search failed, try more direct approach
 	urlName = test.replace(" ", "-")
 	urlName = urlName.replace("'", "")
 	url += urlName + "-1.html"
-	print(url)
 	soup = findSite(url)
 	div = soup.find("div", {"class": "nothumb"})
 
@@ -94,11 +101,15 @@ print("Weight: ", weight)
 
 nbadraft_net_info = getNBADraftNetInfo(name)
 
-age = getAge(nbadraft_net_info)
-print("Age: ", age)
+if (nbadraft_net_info == "N/A"):
+	print("Age:   N/A")
+	print("Class: N/A")
+else:
+	age = getAge(nbadraft_net_info)
+	print("Age: ", age)
 
-grade = getClass(nbadraft_net_info)
-print("Class: ", grade)
+	grade = getClass(nbadraft_net_info)
+	print("Class: ", grade)
 
 print("")
 print(" ------- SHOOTING ---------")
