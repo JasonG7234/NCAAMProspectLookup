@@ -10,13 +10,12 @@ DEPENDENCIES:
 CURRENT FEATURES:
 - Added googlesearch functionality to return the college basketball reference page of given player
 - Prints out his name, height, weight, age, and class (as of now)
+- Shooting percentages now included
 
 TO DO:
 - Print out player stats in organized tables
 - Categorize by shooting, advanced, summary maybe (WS, BPM, RTGs, etc)
 - Print in command prompt in tables with borders to allow for easy reading
-- ADD LIKE ERROR IF NBADRAFT NET DOESN"T COME BACK
-- Why is Mike Daum' age wrong?
 - Why is it pulling freshmen year stats?
 
 AFTERWARDS:
