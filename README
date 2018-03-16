@@ -9,14 +9,13 @@ DEPENDENCIES:
 
 CURRENT FEATURES:
 - Added googlesearch functionality to return the college basketball reference page of given player
-- Prints out his name, height, weight, age, and class
+- Prints out his name, height, weight, number, age, and class
 - Yearly averages and shooting percentages now included
 
 TO DO:
 - Print out player stats in organized tables
 - Categorize by shooting, advanced, summary maybe (WS, BPM, RTGs, etc)
 - Print in command prompt in tables with borders to allow for easy reading
-- Why is it pulling freshmen year stats?
 
 AFTERWARDS:
 - Add shooting percentages from 2 pt range and at rim from HoopMath
