@@ -80,6 +80,12 @@ def printYearlyAverages(content):
 	APG = stat_year.find("td", {"data-stat": "ast_per_g"})
 	APG = (str(APG))[41:-5]
 	print("APG: ", APG)
+	SPG = stat_year.find("td", {"data-stat": "stl_per_g"})
+	SPG = (str(SPG))[41:-5]
+	print("SPG: ", SPG)
+	BPG = stat_year.find("td", {"data-stat": "blk_per_g"})
+	BPG = (str(BPG))[41:-5]
+	print("BPG: ", BPG)
 
 query = "bkref cbb "
 test = input("BKREF Search: ")
@@ -112,6 +118,10 @@ print("Height: ", height)
 weight = str(div).split("span",2)[2]
 weight = weight[27:32]
 print("Weight: ", weight)
+
+number = soup.find("text", {"fill":"#ffffff"})
+number = str(number)[35:-7]
+print("Number: ", number)
 
 nbadraft_net_info = getNBADraftNetInfo(name)
 
