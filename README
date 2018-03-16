@@ -9,8 +9,8 @@ DEPENDENCIES:
 
 CURRENT FEATURES:
 - Added googlesearch functionality to return the college basketball reference page of given player
-- Prints out his name, height, weight, age, and class (as of now)
-- Shooting percentages now included
+- Prints out his name, height, weight, age, and class
+- Yearly averages and shooting percentages now included
 
 TO DO:
 - Print out player stats in organized tables
