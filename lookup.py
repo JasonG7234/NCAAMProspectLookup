@@ -87,6 +87,32 @@ def printYearlyAverages(content):
 	BPG = (str(BPG))[41:-5]
 	print("BPG: ", BPG)
 
+
+
+def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING SO I HAVE TO DO THIS STUPID WORKAROUND
+	div = content.find("div", {"id": "all_players_advanced"})
+	i1 = str(div).find("<tbody>")
+	i2 = str(div).find("</tbody>")
+	table = str(div)[i1:i2]
+	stat_year = table.split("<tr")[-1]
+	PER = stat_year.find("per")
+	PERtxt = (str(stat_year))[PER+6:PER+10]
+	print("PER: ", PERtxt)
+	WS = stat_year.find("ws_per_40")
+	WStxt = (str(stat_year))[WS+12:WS+16]
+	print("WS/40: ", WStxt)
+	BPM = stat_year.find("\"bpm\"")
+	BPMtxt = (str(stat_year))[BPM+7:BPM+10]
+	print("BPM: ", BPMtxt)
+	#table = content.find("table", {"id": "players_per_poss"})
+	#stat_year = table("tr")[-2] #Guarantee most recent season
+	#ORTG = stat_year.find("td", {"data-stat": "off_rtg"})
+	#ORTG = (str(ORTG))[41:-5]
+	#print("ORTG: ", ORTG)
+	#DRTG = stat_year.find("td", {"data-stat": "def_rtg"})
+	#DRTG = (str(DRTG))[41:-5]
+	#print("DRTG: ", DRTG)
+
 query = "bkref cbb "
 test = input("BKREF Search: ")
 query += test
@@ -120,7 +146,10 @@ weight = weight[27:32]
 print("Weight: ", weight)
 
 number = soup.find("text", {"fill":"#ffffff"})
-number = str(number)[35:-7]
+if (str(number)[24] == '9'):
+	number = str(number)[34:-7]
+else:
+	number = str(number)[35:-7]
 print("Number: ", number)
 
 nbadraft_net_info = getNBADraftNetInfo(name)
@@ -141,6 +170,9 @@ printYearlyAverages(soup)
 print("")
 print(" ------- SHOOTING ---------")
 printShootingNumbers(soup)
+print("")
+print(" ------- ADVANCED ---------")
+printAdvancedNumbers(soup)
 
 
 
