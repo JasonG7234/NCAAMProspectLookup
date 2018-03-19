@@ -1,9 +1,10 @@
 import requests
+import utils
 from bs4 import BeautifulSoup
 from googlesearch import search
 from datetime import *
 from dateutil.relativedelta import *
-import calendar
+
 
 def findSite(url):
 	
@@ -87,8 +88,6 @@ def printYearlyAverages(content):
 	BPG = (str(BPG))[41:-5]
 	print("BPG: ", BPG)
 
-
-
 def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING SO I HAVE TO DO THIS STUPID WORKAROUND
 	div = content.find("div", {"id": "all_players_advanced"})
 	i1 = str(div).find("<tbody>")
@@ -102,77 +101,91 @@ def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING 
 	WStxt = (str(stat_year))[WS+12:WS+16]
 	print("WS/40: ", WStxt)
 	BPM = stat_year.find("\"bpm\"")
-	BPMtxt = (str(stat_year))[BPM+7:BPM+10]
+	if (str(stat_year)[BPM+10].isdigit()):
+		BPMtxt = (str(stat_year))[BPM+7:BPM+11]
+	else:
+		BPMtxt = (str(stat_year))[BPM+7:BPM+10]
 	print("BPM: ", BPMtxt)
-	#table = content.find("table", {"id": "players_per_poss"})
-	#stat_year = table("tr")[-2] #Guarantee most recent season
-	#ORTG = stat_year.find("td", {"data-stat": "off_rtg"})
-	#ORTG = (str(ORTG))[41:-5]
-	#print("ORTG: ", ORTG)
-	#DRTG = stat_year.find("td", {"data-stat": "def_rtg"})
-	#DRTG = (str(DRTG))[41:-5]
-	#print("DRTG: ", DRTG)
-
-query = "bkref cbb "
-test = input("BKREF Search: ")
-query += test
-
-for j in search(query, num=1, stop=1):
-	url = j
-
-soup = findSite(url)
-div = soup.find("div", {"class": "nothumb"})
+	div = content.find("div", {"id": "all_players_per_poss"})
+	i1 = str(div).find("<tbody>")
+	i2 = str(div).find("</tbody>")
+	table = str(div)[i1:i2]
+	stat_year = table.split("<tr")[-1]
+	ORTG = stat_year.find("off_rtg")
+	if (str(stat_year)[ORTG+14].isdigit()):
+		ORTGtxt = (str(stat_year))[ORTG+10:ORTG+15]
+	else:
+		ORTGtxt = (str(stat_year))[ORTG+10:ORTG+14]
+	print("ORTG: ", ORTGtxt)
+	DRTG = stat_year.find("def_rtg")
+	if (str(stat_year)[DRTG+14].isdigit()):
+		DRTGtxt = (str(stat_year))[DRTG+10:DRTG+15]
+	else:
+		DRTGtxt = (str(stat_year))[DRTG+10:DRTG+14]
+	print("DRTG: ", DRTGtxt)
 	
-if not div: #If the original google search failed, try more direct approach
-	url = "https://www.sports-reference.com/cbb/players/"
-	urlName = test.replace(" ", "-")
-	urlName = urlName.replace("'", "")
-	url += urlName + "-1.html"
+
+
+def main(): 
+	query = "bkref cbb "
+	test = input("BKREF Search: ")
+	query += test
+
+	for j in search(query, num=1, stop=1):
+		url = j
+
 	soup = findSite(url)
 	div = soup.find("div", {"class": "nothumb"})
+		
+	if not div: #If the original google search failed, try more direct approach
+		soup = getSecondURL(test)
+		div = soup.find("div", {"class": "nothumb"})
 
-name = str(div).split("h1",2)[1]
-name = name[17:-2]
-print("")
-print(name)
-print("")
+	name = str(div).split("h1",2)[1]
+	name = name[17:-2]
+	print("")
+	print(name)
+	print("")
 
-height = str(div).split("span",2)[1]
-height = height[19:-2]
-print("Height: ", height)
+	height = str(div).split("span",2)[1]
+	height = height[19:-2]
+	print("Height: ", height)
 
-weight = str(div).split("span",2)[2]
-weight = weight[27:32]
-print("Weight: ", weight)
+	weight = str(div).split("span",2)[2]
+	weight = weight[27:32]
+	print("Weight: ", weight)
 
-number = soup.find("text", {"fill":"#ffffff"})
-if (str(number)[24] == '9'):
-	number = str(number)[34:-7]
-else:
-	number = str(number)[35:-7]
-print("Number: ", number)
+	number = soup.find("text", {"fill":"#ffffff"})
+	if (str(number)[24] == '9'):
+		number = str(number)[34:-7]
+	else:
+		number = str(number)[35:-7]
+	print("Number: ", number)
 
-nbadraft_net_info = getNBADraftNetInfo(name)
+	nbadraft_net_info = getNBADraftNetInfo(name)
 
-if (nbadraft_net_info == "N/A"):
-	print("Age:   N/A")
-	print("Class: N/A")
-else:
-	age = getAge(nbadraft_net_info)
-	print("Age: ", age)
+	if (nbadraft_net_info == "N/A"):
+		print("Age:   N/A")
+		print("Class: N/A")
+	else:
+		age = getAge(nbadraft_net_info)
+		print("Age: ", age)
 
-	grade = getClass(nbadraft_net_info)
-	print("Class: ", grade)
+		grade = getClass(nbadraft_net_info)
+		print("Class: ", grade)
 
-print("")
-print(" ------- AVERAGES ---------")
-printYearlyAverages(soup)
-print("")
-print(" ------- SHOOTING ---------")
-printShootingNumbers(soup)
-print("")
-print(" ------- ADVANCED ---------")
-printAdvancedNumbers(soup)
+	print("")
+	print(" ------- AVERAGES ---------")
+	printYearlyAverages(soup)
+	print("")
+	print(" ------- SHOOTING ---------")
+	printShootingNumbers(soup)
+	print("")
+	print(" ------- ADVANCED ---------")
+	printAdvancedNumbers(soup)
+	
+if __name__ == "__main__":
+    main()
 
 
 
