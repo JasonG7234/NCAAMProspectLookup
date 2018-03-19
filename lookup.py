@@ -1,7 +1,7 @@
 import requests
-import utils
 from bs4 import BeautifulSoup
 from googlesearch import search
+from utils import *
 from datetime import *
 from dateutil.relativedelta import *
 
@@ -136,10 +136,13 @@ def main():
 
 	soup = findSite(url)
 	div = soup.find("div", {"class": "nothumb"})
+	number = soup.find("text", {"fill":"#ffffff"})
+	print(number)
 		
-	if not div: #If the original google search failed, try more direct approach
+	if not (div and number) : #If the original google search failed, try more direct approach
 		soup = getSecondURL(test)
 		div = soup.find("div", {"class": "nothumb"})
+		number = soup.find("text", {"fill":"#ffffff"})
 
 	name = str(div).split("h1",2)[1]
 	name = name[17:-2]
@@ -148,6 +151,7 @@ def main():
 	print("")
 
 	height = str(div).split("span",2)[1]
+	height = str(div).split("span",2)[1]
 	height = height[19:-2]
 	print("Height: ", height)
 
@@ -155,7 +159,7 @@ def main():
 	weight = weight[27:32]
 	print("Weight: ", weight)
 
-	number = soup.find("text", {"fill":"#ffffff"})
+	
 	if (str(number)[24] == '9'):
 		number = str(number)[34:-7]
 	else:
