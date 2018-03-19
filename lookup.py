@@ -1,17 +1,8 @@
-import requests
-from bs4 import BeautifulSoup
 from googlesearch import search
 from utils import *
 from datetime import *
 from dateutil.relativedelta import *
 
-
-def findSite(url):
-	
-	response = requests.get(url)
-	html = response.content
-
-	return BeautifulSoup(html, "html.parser")
 
 def getNBADraftNetInfo(name):
 	age_query = "nbadraft net " + name
@@ -137,7 +128,6 @@ def main():
 	soup = findSite(url)
 	div = soup.find("div", {"class": "nothumb"})
 	number = soup.find("text", {"fill":"#ffffff"})
-	print(number)
 		
 	if not (div and number) : #If the original google search failed, try more direct approach
 		soup = getSecondURL(test)
