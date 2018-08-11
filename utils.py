@@ -127,5 +127,11 @@ def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING 
 	else:
 		DRTGtxt = (str(stat_year))[DRTG+10:DRTG+14]
 	print("DRTG: ", DRTGtxt)
+
+#def printHoopMathNumbers:
+	#response = requests.get()
+	#html = response.content
+
+	#return BeautifulSoup(html, "html.parser")
 	
 
