@@ -13,11 +13,12 @@ CURRENT FEATURES:
 - Yearly averages and shooting percentages now included
 
 TO DO:
-- Print out player stats in organized tables
-- Categorize by shooting, advanced, summary maybe (WS, BPM, RTGs, etc)
+- Add full HoopMath functionality
+	- Currently have to match team data from BKRef -> HoopMath
+- Keep player stats in dictionaries?
 - Print in command prompt in tables with borders to allow for easy reading
+- Add front end (React?) and host on personal site
 
 AFTERWARDS:
-- Add shooting percentages from 2 pt range and at rim from HoopMath
 - Maybe ask the user what kind of stats they are interested in? Per possession data over advanced? 
 - Maybe ask the user what year they want the data from? FR, SO, JR, SR?
