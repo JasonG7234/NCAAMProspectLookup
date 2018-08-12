@@ -4,6 +4,8 @@ from googlesearch import search
 from datetime import *
 from dateutil.relativedelta import *
 
+year = ""
+
 def searchGoogle(query):
 	for j in search(query, num=1, stop=1):
 			url = j
@@ -76,6 +78,8 @@ def printShootingNumbers(content):
 def printYearlyAverages(content):
 	table = content.find("table", {"id": "players_per_game"})
 	stat_year = table("tr")[-2] #Guarantee most recent season
+	global year
+	year = stat_year.find('th').getText()[0:2] + stat_year.find('th').getText()[-2:] #GLOBAL VARIABLE FOR HOOPMATH
 	PPG = stat_year.find("td", {"data-stat": "pts_per_g"})
 	PPG = (str(PPG))[41:-5]
 	print("PPG: ", PPG)
@@ -108,7 +112,7 @@ def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING 
 	if (str(stat_year)[BPM+10].isdigit()):
 		BPMtxt = (str(stat_year))[BPM+7:BPM+11]
 	else:
-		BPMtxt = (str(stat_year))[BPM+7:BPM+10]
+ 		BPMtxt = (str(stat_year))[BPM+7:BPM+10]
 	print("BPM: ", BPMtxt)
 	div = content.find("div", {"id": "all_players_per_poss"})
 	i1 = str(div).find("<tbody>")
@@ -128,10 +132,18 @@ def printAdvancedNumbers(content): #FOR SOME REASON THE FIND DIV IS NOT WORKING 
 		DRTGtxt = (str(stat_year))[DRTG+10:DRTG+14]
 	print("DRTG: ", DRTGtxt)
 
-#def printHoopMathNumbers:
-	#response = requests.get()
-	#html = response.content
+def printHoopMathNumbers(school, name):
+	response = requests.get(getHoopMathURL(school))
+	return BeautifulSoup(response.content, "html.parser")
 
-	#return BeautifulSoup(html, "html.parser")
+def getHoopMathURL(school):
+	print(school[-6:])
+	if (school[-6:] == ' State'):
+		newSchool = school[:-3] + "."
+		newSchool = newSchool.replace(" ","")
+	else:
+		newSchool = school.replace(" ","")
+	url = "http://hoop-math.com/" + newSchool + year + ".php"
+	return url
 	
 

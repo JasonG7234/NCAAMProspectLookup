@@ -42,7 +42,7 @@ def main():
 			weight = weight[27:32]
 			print("Weight: ", weight)
 	
-			school = div.find('a').getText())
+			school = div.find('a').getText()
 			print("School: ", school)
 		
 			if (str(number)[24] == '9'):
@@ -73,9 +73,9 @@ def main():
 			print(" ------- ADVANCED ---------")
 			printAdvancedNumbers(soup)
 			print("")
-			#print(" ------- HOOPMATH ---------")
-			#printHoopMathNumbers(soup)
-			#print("")
+			print(" ------- HOOPMATH ---------")
+			printHoopMathNumbers(school, name)
+			print("")
 			print("")
 
 		print("")
